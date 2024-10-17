@@ -82,9 +82,5 @@ def main():
             if json_data is not None:
                 json_data_list.append(json_data)
 
-    # Optionally, save the JSON data to a file
-    with open('output.json', 'w') as json_file:
-        json.dump(json_data_list, json_file, indent=4)
-
 if __name__ == '__main__':
     main()

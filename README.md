@@ -55,7 +55,7 @@ The script consists of two key functions:
 
 - Handling errors and logging
 
-### Error 
+- **Error found:** 
 
 "Check for unexpected fields" not working as expected. The file order_010.xml have an additional field <Discount>10.00</Discount> which should be pointed out in the log
 
