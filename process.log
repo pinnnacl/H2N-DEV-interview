@@ -1,3 +1,16 @@
-2024-10-18 14:23:42,976 - WARNING - Skipped order_008.xml - Missing <Customer> element.
-2024-10-18 14:23:42,977 - ERROR - Parsing error in order_009.xml - Malformed XML.
-2024-10-18 14:23:42,977 - WARNING - Warning in order_010.xml - Unexpected field(s) Discount.
+2024-10-18 14:40:35,510 - WARNING - Skipped order_002.xml - Missing <Products> element.
+2024-10-18 14:40:35,512 - WARNING - Skipped order_006.xml - Missing <Products> element.
+2024-10-18 14:40:35,514 - WARNING - Skipped order_010.xml - Missing <Products> element.
+2024-10-18 14:40:35,514 - WARNING - Skipped order_010.xml - Missing <Products> element.
+2024-10-18 14:40:35,515 - WARNING - Skipped order_014.xml - Missing <Products> element.
+2024-10-18 14:40:35,517 - WARNING - Skipped order_018.xml - Missing <Products> element.
+2024-10-18 14:40:35,519 - WARNING - Skipped order_022.xml - Missing <Products> element.
+2024-10-18 14:40:35,520 - WARNING - Skipped order_022.xml - Missing <Products> element.
+2024-10-18 14:40:35,520 - WARNING - Skipped order_022.xml - Missing <Products> element.
+2024-10-18 14:40:35,520 - WARNING - Skipped order_022.xml - Missing <Products> element.
+2024-10-18 14:40:35,520 - WARNING - Skipped order_022.xml - Missing <Products> element.
+2024-10-18 14:40:35,521 - WARNING - Skipped order_026.xml - Missing <Products> element.
+2024-10-18 14:40:35,523 - WARNING - Skipped order_030.xml - Missing <Products> element.
+2024-10-18 14:40:35,526 - WARNING - Skipped order_038.xml - Missing <Customer> element.
+2024-10-18 14:40:35,527 - ERROR - Parsing error in order_039.xml - not well-formed (invalid token): line 8, column 4.
+2024-10-18 14:40:35,528 - WARNING - Warning in order_040.xml - Unexpected field(s) Discount.

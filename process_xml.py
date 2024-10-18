@@ -2,7 +2,6 @@ import os
 import json
 import logging
 import xml.etree.ElementTree as ET
-from datetime import datetime
 
 # Set up logging
 logging.basicConfig(
@@ -12,19 +11,15 @@ logging.basicConfig(
 )
 
 # Define the path to the XML files
-xml_folder = '/xml-files/'
+xml_folder = 'C:/Users/nandu/OneDrive/Documents/H2N-DEV-interview/main/'
 
-
-def parse_xml_to_json(file_path):
-    """Parse XML file and convert to JSON."""
+def parse_order(order_element, file_path):
+    """Parse individual order element and return a JSON object."""
     try:
-        tree = ET.parse(file_path)
-        root = tree.getroot()
-
-        # Extract key fields
         order_data = {}
-        order_data['OrderID'] = root.find('OrderID').text if root.find('OrderID') is not None else None
-        customer = root.find('Customer')
+        order_data['OrderID'] = order_element.find('OrderID').text if order_element.find('OrderID') is not None else None
+        
+        customer = order_element.find('Customer')
         if customer is not None:
             order_data['Customer'] = {
                 'CustomerID': customer.find('CustomerID').text if customer.find('CustomerID') is not None else None,
@@ -36,7 +31,7 @@ def parse_xml_to_json(file_path):
 
         # Extract products
         products = []
-        products_element = root.find('Products')
+        products_element = order_element.find('Products')
         if products_element is not None:
             for product in products_element.findall('Product'):
                 product_data = {
@@ -51,24 +46,53 @@ def parse_xml_to_json(file_path):
             return None
         order_data['Products'] = products
 
+
+
         # Check for unexpected fields
         expected_fields = {'OrderID', 'Customer', 'OrderDate', 'Products', 'TotalAmount'}
-        unexpected_fields = set(root.keys()) - expected_fields
+        unexpected_fields = set(order_element.keys()) - expected_fields
         
-        # Check for unexpected children of the root
-        for child in root:
+        for child in order_element:
             if child.tag not in expected_fields:
                 unexpected_fields.add(child.tag)
 
-        # Log unexpected fields if any
         if unexpected_fields:
             logging.warning(f'Warning in {os.path.basename(file_path)} - Unexpected field(s) {", ".join(unexpected_fields)}.')
 
-        # Return order data as JSON
-        return json.dumps(order_data)
+        return order_data
 
-    except ET.ParseError:
-        logging.error(f'Parsing error in {os.path.basename(file_path)} - Malformed XML.')
+    except Exception as e:
+        logging.error(f'Error processing order in {os.path.basename(file_path)}: {str(e)}')
+        return None
+
+
+def parse_xml_to_json(file_path):
+    """Parse XML file and convert it to JSON, handling both single and multiple order formats."""
+    try:
+        tree = ET.parse(file_path)
+        root = tree.getroot()
+
+        # List to store parsed order data
+        orders_data = []
+
+        # Handle both single-order and multi-order XML files
+        if root.tag == 'Order':  # Single order
+            order_data = parse_order(root, file_path)
+            if order_data:
+                orders_data.append(order_data)
+        elif root.tag == 'Orders':  # Multiple orders
+            for order in root.findall('Order'):
+                order_data = parse_order(order, file_path)
+                if order_data:
+                    orders_data.append(order_data)
+        else:
+            logging.warning(f'Skipped {os.path.basename(file_path)} - Invalid root element <{root.tag}>.')
+
+        if orders_data:
+            return json.dumps(orders_data, indent=4)
+
+    except ET.ParseError as e:
+        logging.error(f'Parsing error in {os.path.basename(file_path)} - {str(e)}.')
     except Exception as e:
         logging.error(f'Error processing {os.path.basename(file_path)}: {str(e)}')
 
@@ -85,7 +109,7 @@ def main():
             if json_data is not None:
                 json_data_list.append(json_data)
 
-    # Optionally, save the JSON data to a file
+    # Save the JSON data to a file
     with open('output.json', 'w') as json_file:
         json.dump(json_data_list, json_file, indent=4)
 

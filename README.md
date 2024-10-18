@@ -45,6 +45,9 @@ The script consists of two key functions:
     File <string>
   ParseError: not well-formed (invalid token): line 8, column 4
   ```
+
+---
+
 ### 2. Modify the code to add below feature
 
 
@@ -71,10 +74,19 @@ The script consists of two key functions:
 2. **Logging of Unexpected Fields:**
    - If any unexpected fields are found, they are now logged properly in the process.log file.
 
-### 3. Made additional changes to the  "Check for unexpected fields"
+---
+
+### 4. Made additional changes to the  "Check for unexpected fields"
 
 **Key Changes Made:**
 1. **Added Unexpected Fields Check:**
    - modified the unexpected fields check to consider any child elements of the root that do not match the expected fields.
 2. **Logging of Unexpected Fields:**
    - If any unexpected fields are found, they are now logged properly in the process.log
+
+
+---
+
+### 5. Challenge:  Handle both single-order and multi-order XML files
+
+Modified the code with the help of chatGPT to handle both single-order and multi-order XML files.
