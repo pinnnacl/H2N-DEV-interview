@@ -1,0 +1,2 @@
+2024-10-18 14:14:06,590 - WARNING - Skipped order_008.xml - Missing <Customer> element.
+2024-10-18 14:14:06,591 - ERROR - Parsing error in order_009.xml - Malformed XML.
