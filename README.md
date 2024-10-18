@@ -71,3 +71,10 @@ The script consists of two key functions:
 2. **Logging of Unexpected Fields:**
    - If any unexpected fields are found, they are now logged properly in the process.log file.
 
+### 3. Made additional changes to the  "Check for unexpected fields"
+
+**Key Changes Made:**
+1. **Added Unexpected Fields Check:**
+   - modified the unexpected fields check to consider any child elements of the root that do not match the expected fields.
+2. **Logging of Unexpected Fields:**
+   - If any unexpected fields are found, they are now logged properly in the process.log

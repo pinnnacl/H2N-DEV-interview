@@ -12,7 +12,7 @@ logging.basicConfig(
 )
 
 # Define the path to the XML files
-xml_folder = 'C:/Users/nandu/OneDrive/Documents/H2N-DEV-interview/base/'
+xml_folder = '/xml-files/'
 
 
 def parse_xml_to_json(file_path):
@@ -49,12 +49,6 @@ def parse_xml_to_json(file_path):
         else:
             logging.warning(f'Skipped {os.path.basename(file_path)} - Missing <Products> element.')
             return None
-        order_data['Products'] = products
-
-      # Check for unexpected fields
-        unexpected_fields = set(root.keys()) - {'OrderID', 'Customer', 'OrderDate', 'Products', 'TotalAmount'}
-        if unexpected_fields:
-            logging.warning(f'Warning in {os.path.basename(file_path)} - Unexpected field(s) {", ".join(unexpected_fields)}.')
         order_data['Products'] = products
 
         # Check for unexpected fields
@@ -94,7 +88,6 @@ def main():
     # Optionally, save the JSON data to a file
     with open('output.json', 'w') as json_file:
         json.dump(json_data_list, json_file, indent=4)
-
 
 if __name__ == '__main__':
     main()
