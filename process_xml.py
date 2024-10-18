@@ -55,6 +55,21 @@ def parse_xml_to_json(file_path):
         unexpected_fields = set(root.keys()) - {'OrderID', 'Customer', 'OrderDate', 'Products', 'TotalAmount'}
         if unexpected_fields:
             logging.warning(f'Warning in {os.path.basename(file_path)} - Unexpected field(s) {", ".join(unexpected_fields)}.')
+        order_data['Products'] = products
+
+        # Check for unexpected fields
+        expected_fields = {'OrderID', 'Customer', 'OrderDate', 'Products', 'TotalAmount'}
+        unexpected_fields = set(root.keys()) - expected_fields
+        
+        # Check for unexpected children of the root
+        for child in root:
+            if child.tag not in expected_fields:
+                unexpected_fields.add(child.tag)
+
+        # Log unexpected fields if any
+        if unexpected_fields:
+            logging.warning(f'Warning in {os.path.basename(file_path)} - Unexpected field(s) {", ".join(unexpected_fields)}.')
+
         # Return order data as JSON
         return json.dumps(order_data)
 
@@ -79,6 +94,7 @@ def main():
     # Optionally, save the JSON data to a file
     with open('output.json', 'w') as json_file:
         json.dump(json_data_list, json_file, indent=4)
+
 
 if __name__ == '__main__':
     main()
